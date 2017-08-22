@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block pageheader %}
+<span class="navbar-brand">{{ page.title }} - References</span>
+{% endblock %}
+
+{% block content %}
+    <div><button class="btn btn-primary btn-sm" onclick="location.href='{{ url_for('main.wiki_page', group=group, page_id=page.id) }}'">❮ Back</button></div><br>
+
+    {% for p in referenced_by %}
+        <a href="{{ url_for('main.wiki_page', group=group, page_id=p.id) }}" class="wiki-page">{{ p.title }}</a><br>
+    {% endfor %}
+{% endblock %}

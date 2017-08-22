@@ -1,0 +1,8 @@
+0.0.0.0:31415 {
+    root ./
+    proxy / 127.0.0.1:31415 {
+        transparent
+    }
+    log ./access.log
+    timeouts 1m
+}

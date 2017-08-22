@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block pageheader %}
+<span class="navbar-brand">Edit Key Pages</span>
+{% endblock %}
+
+{% block content %}
+<small>Add key page titles, one title per line. Non-existing page will be ignored.</small>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ form.textArea(class="form-control", rows="15") }}
+    </div>
+
+        {{ form.submit(class="btn btn-primary") }}
+        <button type="button" id="cancel" class="btn btn-secondary">Cancel</button>
+    </form>
+    <script type="text/javascript">
+        document.getElementById("cancel").onclick = function () {
+            location.href = "{{ url_for('main.wiki_group_home', group=group) }}";
+        };
+    </script>
+{% endblock %}

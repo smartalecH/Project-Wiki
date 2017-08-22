@@ -1,0 +1,120 @@
+{% extends 'admin/layout.html' %}
+
+{% block pageheader %}
+<span class="navbar-brand">Super Admin</span>
+{% endblock %}
+
+{% block content %}
+<h1>Server reload</h1>
+
+<a href="{{ url_for('admin.wiki_server_reload') }}">Server reload</a>
+
+<br><br><hr>
+
+<h1>Add new group</h1>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        {% if message == 'New group added.' %}
+        <div class="alert alert-success alert-dismissable">
+        {% else %}
+        <div class="alert alert-danger alert-dismissable">
+        {% endif %}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<form class="form-add-group" method="POST">
+    {{ form.hidden_tag() }}
+
+    {% if form.groupname.errors or form.username.errors or form.email.errors or form.password.errors %}
+        {% for error in (form.groupname.errors + form.username.errors + form.email.errors + form.password.errors) %}
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{ error }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div style="max-width:300px;">
+        <div class="form-group">
+        {{ form.groupname(class="form-control", placeholder="Group Name") }}
+        </div>
+        <div class="form-group">
+        {{ form.username(class="form-control", placeholder="Group Admin") }}
+        </div>
+        <div class="form-group">
+        {{ form.email(class="form-control", placeholder="Email") }}
+        </div>
+        <div class="form-group">
+        {{ form.password(class="form-control", placeholder="Password") }}
+        </div>
+        <div class="form-group">
+        {{ form.add(class="btn btn-primary col-4") }}
+        </div>
+    </div>
+</form>
+
+<br><hr>
+
+<h1>Current groups</h1>
+
+<table id="current-groups">
+    <thead>
+        <tr>
+            <th>Group Name</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for g in all_groups %}
+        <tr>
+            {% if g.active %}
+                <td><a href="{{ url_for('main.wiki_group_home', group=g.name_no_whitespace) }}">{{ g.name_with_whitespace }}</a></td>
+                <td align="center"><span style="background-color:lightgreen;">In use</span></td>
+                <td align="center"><a href="{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}">Deactivate</a></td>
+            {% else %}
+                <td>{{ g.name_with_whitespace }}</td>
+                <td align="center"><span style="background-color:pink;">Archived</span></td>
+                <td align="center"><a href="{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}">Activate</a></td>
+            {% endif %}
+            <td><a href="{{ url_for('admin.wiki_delete_group', group=g.name_no_whitespace) }}" class="delete-db">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><hr>
+
+<h1>Login Record</h1>
+
+<a href="{{ url_for('admin.wiki_show_login_record') }}">Login Record</a>
+
+<br><br><hr>
+
+<h1>Recent User Activities</h1>
+
+<a href="{{ url_for('admin.wiki_recent_user_activities') }}">Recent User Activities</a>
+
+<br><br><hr>
+
+<h1>All Users</h1>
+
+<a href="{{ url_for('admin.wiki_all_users') }}">All Users</a>
+
+<script type="text/javascript">
+    var elems = document.getElementsByClassName('delete-db');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>
+{% endblock %}

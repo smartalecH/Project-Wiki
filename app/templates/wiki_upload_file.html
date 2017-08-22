@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" href="{{ url_for('static', filename='icons/favicon.ico') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Upload</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link href="{{ url_for('static', filename='css/upload.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="flashes error-message"><strong>{{ message }}</strong></div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <small>Select files from your computer</small>
+                    <form action="{{ url_for('main.wiki_do_upload', group=group) }}" method="POST" enctype="multipart/form-data" id="upload-form">
+                        {{ form.hidden_tag() }}
+                        <div class="form-inline">
+                            <button type="button" class="btn btn-sm btn-secondary" onClick="document.getElementById('file-picker').click();">Choose</button>&nbsp;
+                            {{ form.file(multiple='', style="display:none", id="file-picker") }}
+                            <span id="file-number">0 file selected</span>
+                            {{ form.upload(class="ml-auto btn btn-sm btn-primary", id="upload-button") }}&nbsp;
+                            <button type="button" class="ml-sm btn btn-sm btn-secondary" onClick="window.parent.window.close();">Cancel</button>
+                        </div>
+                    </form>
+
+                    <!-- Drop Zone -->
+                    <small>Or drag and drop files below</small>
+                    <div class="upload-dropbox" id="dropbox">
+                        Just drag and drop files here
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress" id="progress" style="display:none">
+                        <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+                            <span class="sr-only" id="completion">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload Finished -->
+                    <h5>Selected files</h5>
+                    <ul class="list-group" id="selected-files">
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- /container -->
+        
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="/static/bootstrap4/jquery-3.1.1.slim.min.js"><\/script>')</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{{ url_for('static', filename='bootstrap4/ie10-viewport-bug-workaround.js') }}"></script>
+        <script>
+            var wiki_group = '{{ group }}';
+            var page_id = '{{ page_id }}';
+        </script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/upload.js') }}"></script>
+    </body>
+</html>

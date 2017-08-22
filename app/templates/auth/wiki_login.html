@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="{{ url_for('static', filename='icons/favicon.ico') }}">
+
+        <title>Project Wiki</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <!-- Custom styles for this template -->
+        <link href="{{ url_for('static', filename='bootstrap4/login.css') }}" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+
+            <form class="form-signin" method="POST">
+                {{ form.hidden_tag() }}
+                <h2 class="form-signin-heading">Please log in</h2>
+
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        {% if message == 'You have been logged out.' %}
+                        <div class="alert alert-info alert-dismissable">
+                        {% else %}
+                        <div class="alert alert-danger alert-dismissable">
+                        {% endif %}
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{ message }}</strong>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <div class="alert alert-danger alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>{{ error }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.username.label(class="sr-only") }}
+                {{ form.username(class="form-control", placeholder="Username") }}
+                {{ form.password.label(class="sr-only") }}
+                {{ form.password(class="form-control", placeholder="Password") }}
+                
+                <div class="checkbox">
+                    {{ form.remember_me(value="remember-me") }} {{ form.remember_me.label }}
+                </div>
+                {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+            </form>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted"><a href="{{ url_for('main.index') }}">Cover</a></p>
+             </div>
+        </footer>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="static/bootstrap4/jquery-3.1.1.slim.min.js"><\/script>')</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{{ url_for('static', filename='bootstrap4/ie10-viewport-bug-workaround.js') }}"></script>
+    </body>
+</html>
