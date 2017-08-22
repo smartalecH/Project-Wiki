@@ -126,7 +126,25 @@ $ pip install -r requirements.txt
 
     $ caddy -conf /path/to/Caddyfile
 
-### Create mongodb container
+### Setup MongoDB
+
+#### Native
+
+[Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
+
+Start mongod without authentication (no flag `--auth`)
+
+	$ mongod --dbpath <database dir> --port 27017 --bind_ip 127.0.0.1
+	> use admin
+	> db.createUser({user:"<username>",pwd:"<password>",roles:[{role:"root",db:"admin"}]})
+	> exit
+	
+Terminate mongod, and then start it with authentication enabled.
+
+	$ mongod --dbpath <database dir> --auth --port 27017 --bind_ip 127.0.0.1
+	$ mongorestore --username <username> --password <password> --host 127.0.0.1:27017 <backup dir>
+
+#### Docker container
 
     $ docker run --name my_mongo --restart=always -d -p 27017:27017 mongo:3.4.4 mongod --auth
     ($ docker run --name my_mongo --restart=always -d -p 27017:27017 -v <host dir>:/backup mongo:3.4.4 /bin/bash -c "mkdir /backup; mongod --auth")
