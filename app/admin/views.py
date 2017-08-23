@@ -37,7 +37,7 @@ def wiki_super_admin():
             flash('Group already exists.')
         else:
             try:
-                os.mkdir(os.path.join(basedir, 'data', 'uploads', new_group.name_no_whitespace))
+                os.mkdir(os.path.join(basedir, 'Project_Wiki_Data', 'uploads', new_group.name_no_whitespace))
                 new_group.save()
                 db.register_connection(alias=new_group.name_no_whitespace, 
                                        name=new_group.name_no_whitespace,
@@ -69,7 +69,7 @@ def wiki_super_admin():
 @admin.route('/server-reload')
 @super_required
 def wiki_server_reload():
-    with open(os.path.join(basedir, 'data', 'gunicorn.pid'), 'r') as f:
+    with open(os.path.join(basedir, 'Project_Wiki_Data', 'gunicorn.pid'), 'r') as f:
         pid = f.read().strip()
     subprocess.run(['kill', '-HUP', pid])
     return redirect(url_for('.wiki_super_admin'))

@@ -1,5 +1,5 @@
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
 
 
 class Config:
@@ -22,11 +22,13 @@ class Config:
     MAIL_SENDER = 'Project Wiki <{}>'.format(os.environ.get('MAIL_USERNAME', <email>))
     MAIL_SUBJECT_PREFIX = '[Do-not-reply]'
     
+    # Super admin username, email, and password
+    # The email can be the same as the one above.
     ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', <admin username>)
     ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', <admin email>)
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', <admin password>)
 
-    UPLOAD_FOLDER = os.path.join(basedir, 'data', 'uploads')
+    UPLOAD_FOLDER = os.path.join(basedir, 'Project_Wiki_Data', 'uploads')
 
 
 config = Config()

@@ -112,39 +112,70 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 * Install MongoDB
 * Download [Caddy](https://caddyserver.com/download)
 
+#### Mac OS
+
+[Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
+
 ```
+$ cd /path/to/Project-Wiki
+$ mkdir ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
+$ mongod --dbpath ../Project_Wiki_Data/db --port 27017 --bind_ip 127.0.0.1
+> use admin
+> db.createUser({user:"<db username>",pwd:"<db password>",roles:[{role:"root",db:"admin"}]})
+> exit
+```
+
+Stop mongod (`ctrl-c`), and then restart it with `--auth` to enable authentication.
+
+```
+$ mongod --dbpath ../Project_Wiki_Data/db --auth --port 27017 --bind_ip 127.0.0.1
+```
+
+Modify `config.py`, and then setup up Flask web app with following commands
+
+```
+$ cd /path/to/Project-Wiki
 $ bash mkvenv_mac.sh
 $ source env/bin/activate
 $ pip install -r requirements.txt
+$ python manage.py create_admin
+$ bash run.sh
 ```
+
+Now our web app can be access through 127.0.0.1:31415 on the server computer.
+
+[Download and install Caddy](https://caddyserver.com/tutorial/beginner). Then modify `Caddyfile`
+
+```
+$ cd /path/to/Project-Wiki
+$ caddy -conf Caddyfile
+```
+
+Finally, the server is up and open to the internet with https enabled.
 
 ### Cloud
 
-## Note
+## Notes
 
 ### [Caddy](https://caddyserver.com/tutorial/beginner)
 
     $ caddy -conf /path/to/Caddyfile
 
-### Setup MongoDB
+### MongoDB
 
 #### Native
 
 [Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
 
-Start mongod without authentication (no flag `--auth`)
+Backup database
 
-	$ mongod --dbpath <database dir> --port 27017 --bind_ip 127.0.0.1
-	> use admin
-	> db.createUser({user:"<username>",pwd:"<password>",roles:[{role:"root",db:"admin"}]})
-	> exit
+	$ mongodump --out <back dir> --username <username> --password <password> --host 127.0.0.1:27017
 	
-Terminate mongod, and then start it with authentication enabled.
-
-	$ mongod --dbpath <database dir> --auth --port 27017 --bind_ip 127.0.0.1
+Restore database
+	
 	$ mongorestore --username <username> --password <password> --host 127.0.0.1:27017 <backup dir>
 
-#### Docker container
+#### Setup mongodb docker container
 
     $ docker run --name my_mongo --restart=always -d -p 27017:27017 mongo:3.4.4 mongod --auth
     ($ docker run --name my_mongo --restart=always -d -p 27017:27017 -v <host dir>:/backup mongo:3.4.4 /bin/bash -c "mkdir /backup; mongod --auth")
