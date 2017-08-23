@@ -109,8 +109,6 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 ### Private server
 
 * Install Python 3.6 (with pip)
-* Install MongoDB
-* Download [Caddy](https://caddyserver.com/download)
 
 #### Mac OS
 
@@ -118,7 +116,7 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 
 ```
 $ cd /path/to/Project-Wiki
-$ mkdir ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
+$ mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
 $ mongod --dbpath ../Project_Wiki_Data/db --port 27017 --bind_ip 127.0.0.1
 > use admin
 > db.createUser({user:"<db username>",pwd:"<db password>",roles:[{role:"root",db:"admin"}]})
@@ -154,6 +152,39 @@ $ caddy -conf Caddyfile
 Finally, the server is up and open to the internet with https enabled.
 
 ### Cloud
+
+## How to start and shutdown server
+
+### Start
+
+mongodb
+
+```
+$ cd /path/to/Project-Wiki
+$ mongod --dbpath ../Project_Wiki_Data/db --auth --port 27017 --bind_ip 127.0.0.1
+```
+
+Flask web app
+
+```
+$ cd /path/to/Project-Wiki
+$ bash run.sh
+```
+
+caddy
+
+```
+$ cd /path/to/Project-Wiki
+$ caddy -conf Caddyfile
+```
+
+### Shutdown
+
+`ctrl-c` in each terminal window:
+
+* The one running mongod
+* The one running python
+* The one running caddy
 
 ## Notes
 
