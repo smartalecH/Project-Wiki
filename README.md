@@ -108,33 +108,19 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 
 ### Private server
 
-* Install Python 3.6 (with pip)
-
 #### Mac OS
 
-[Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
+* Install Python 3.6 (with pip)
+* [Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
+* [Download and install Caddy](https://caddyserver.com/tutorial/beginner)
+
+Modify `config.py` and `Caddyfile`
 
 ```
 $ cd /path/to/Project-Wiki
 $ mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
-$ mongod --dbpath ../Project_Wiki_Data/db --port 27017 --bind_ip 127.0.0.1
-> use admin
-> db.createUser({user:"<db username>",pwd:"<db password>",roles:[{role:"root",db:"admin"}]})
-> exit
-```
-
-Stop mongod (`ctrl-c`), and then restart it with `--auth` to enable authentication.
-
-```
-$ mongod --dbpath ../Project_Wiki_Data/db --auth --port 27017 --bind_ip 127.0.0.1
-```
-
-Modify `config.py`, and then setup up Flask web app with following commands
-
-```
-$ cd /path/to/Project-Wiki
-$ bash mkvenv_mac.sh
-$ source env/bin/activate
+$ mongod --dbpath ../Project_Wiki_Data/db --port 27017 --bind_ip 127.0.0.1 --auth
+$ mongo admin --eval "db.createUser({user: '<database username>', pwd: '<database password>', roles:[{role:'root',db:'admin'}]});"
 $ pip install -r requirements.txt
 $ python manage.py create_admin
 $ bash run.sh
@@ -142,7 +128,6 @@ $ bash run.sh
 
 Now our web app can be access through 127.0.0.1:31415 on the server computer.
 
-[Download and install Caddy](https://caddyserver.com/tutorial/beginner). Then modify `Caddyfile`
 
 ```
 $ cd /path/to/Project-Wiki

@@ -8,8 +8,8 @@ class Config:
     WTF_CSRF_ENABLED = True
     MONGODB_SETTINGS = {
         'db': os.environ.get('DB_NAME', 'admin'),
-        'host': os.environ.get('DB_SERVICE', <database ip>),
-        'port': os.environ.get('DB_PORT', <database port>),
+        'host': os.environ.get('DB_SERVICE', '127.0.0.1'),
+        'port': os.environ.get('DB_PORT', 27017),
         'username': os.environ.get('DB_USER', <database username>),
         'password': os.environ.get('DB_PASS', <database password>)
     }
