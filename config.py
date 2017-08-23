@@ -14,6 +14,12 @@ class Config:
         'password': os.environ.get('DB_PASS', <database password>)
     }
     
+    # Email to send out notification to users
+    # Here Gmail is used as an example. 
+    # If you want to stay with Gmail, 
+    # you need to `Allow less secure apps to access accounts`.
+    # More info: https://support.google.com/a/answer/6260879?hl=en
+    # and https://github.com/miguelgrinberg/flasky/issues/65
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True

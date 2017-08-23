@@ -1,3 +1,4 @@
+# If you have your own domain, replace "0.0.0.0" with it.
 0.0.0.0:31415 {
     root ./
     proxy / 127.0.0.1:31415 {
@@ -5,4 +6,7 @@
     }
     log ./access.log
     timeouts 1m
+    # If you want to use your own https certificate and key, 
+    # un-comment the next line, and use actual path.
+    # tls /path/to/certificate /path/to/key
 }
