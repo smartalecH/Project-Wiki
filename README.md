@@ -114,18 +114,13 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 * [Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
 * [Download and install Caddy](https://caddyserver.com/tutorial/beginner)
 
-Modify `config.py` and `Caddyfile` accordingly.
+Modify `config.py` and `Caddyfile` accordingly. Make sure `mongodb` and `caddy` are not running.
 
 Run the following commands. **Do not forget to replace `<database username>` and `<database password>` with actual ones which should match those in `config.py`.**
 
 ```
 $ cd /path/to/Project-Wiki
-$ mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
-$ mongod --dbpath ../Project_Wiki_Data/db --logpath ../Project_Wiki_Data/log/mongo_setup.log --auth --fork
-$ mongo admin --eval "db.createUser({user: '<database username>', pwd: '<database password>', roles:[{role:'root',db:'admin'}]});"
-$ pip install -r requirements.txt
-$ python manage.py create_admin
-$ kill -9 `ps -ef | grep mongod | grep -v grep | awk '{print $2}'`
+$ bash setup.sh <database username> <database password>
 ```
 
 Now the server is setup. To start it, 
