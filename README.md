@@ -126,10 +126,17 @@ $ mongo admin --eval "db.createUser({user: '<database username>', pwd: '<databas
 $ pip install -r requirements.txt
 $ python manage.py create_admin
 $ kill -9 `ps -ef | grep mongod | grep -v grep | awk '{print $2}'`
+```
+
+Now the server is setup. To start it, 
+
+```
 $ bash start.sh
 ```
 
-Finally, the server is up and open to the internet with https enabled.
+If the IP in `Caddyfile` remains `0.0.0.0`, Project Wiki can only be accessed via server IP on local network. 
+To enable automatic HTTPS for secure data transmission, a few requirements should be satisfied, [detailed here](https://caddyserver.com/docs/automatic-https). 
+If setup correctly, Project Wiki will be available at `https:\\<your.domain>`.
 
 ### Cloud
 
@@ -149,6 +156,18 @@ $ cd /path/to/Project-Wiki
 $ bash stop.sh
 ```
 
+## Backup and resotre
+
+### Backup
+
+* Copy the entire `Project_Wiki_Data` folder.
+
+### Retore
+
+* Move the backup `Project_Wiki_Data` folder to the same directory as `Project-Wiki`
+* Modify `config.py` and `Caddyfile` accordingly
+
+
 ## Notes
 
 ### [Caddy](https://caddyserver.com/tutorial/beginner)
@@ -159,15 +178,13 @@ $ bash stop.sh
 
 #### Native
 
-[Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
-
 Backup database
 
-	$ mongodump --out <back dir> --username <username> --password <password> --host 127.0.0.1:27017
+	$ mongodump --out <back dir> --username <username> --password <password>
 	
 Restore database
 	
-	$ mongorestore --username <username> --password <password> --host 127.0.0.1:27017 <backup dir>
+	$ mongorestore --username <username> --password <password> <backup dir>
 
 #### Setup mongodb docker container
 
