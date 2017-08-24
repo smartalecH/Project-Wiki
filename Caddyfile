@@ -4,7 +4,7 @@
     proxy / 127.0.0.1:31415 {
         transparent
     }
-    log ./access.log
+    log ../Project_Wiki_Data/log/caddy.log
     timeouts 1m
     # If you want to use your own https certificate and key, 
     # un-comment the next line, and use actual path.
