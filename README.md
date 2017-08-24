@@ -116,6 +116,8 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 
 Modify `config.py` and `Caddyfile` accordingly.
 
+Run the following commands. **Do not forget to replace `<database username>` and `<database password>` with actual ones which should match those in `config.py`.**
+
 ```
 $ cd /path/to/Project-Wiki
 $ mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
@@ -144,7 +146,7 @@ $ bash start.sh
 
 ```
 $ cd /path/to/Project-Wiki
-$ bash stop
+$ bash stop.sh
 ```
 
 ## Notes
