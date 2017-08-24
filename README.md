@@ -114,24 +114,17 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 * [Download and install mongodb](https://docs.mongodb.com/manual/tutorial/)
 * [Download and install Caddy](https://caddyserver.com/tutorial/beginner)
 
-Modify `config.py` and `Caddyfile`
+Modify `config.py` and `Caddyfile` accordingly.
 
 ```
 $ cd /path/to/Project-Wiki
 $ mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
-$ mongod --dbpath ../Project_Wiki_Data/db --port 27017 --bind_ip 127.0.0.1 --auth
+$ mongod --dbpath ../Project_Wiki_Data/db --logpath ../Project_Wiki_Data/log/mongo_setup.log --auth --fork
 $ mongo admin --eval "db.createUser({user: '<database username>', pwd: '<database password>', roles:[{role:'root',db:'admin'}]});"
 $ pip install -r requirements.txt
 $ python manage.py create_admin
-$ bash run.sh
-```
-
-Now our web app can be access through 127.0.0.1:31415 on the server computer.
-
-
-```
-$ cd /path/to/Project-Wiki
-$ caddy -conf Caddyfile
+$ kill -9 `ps -ef | grep mongod | grep -v grep | awk '{print $2}'`
+$ bash start.sh
 ```
 
 Finally, the server is up and open to the internet with https enabled.
@@ -142,34 +135,17 @@ Finally, the server is up and open to the internet with https enabled.
 
 ### Start
 
-mongodb
-
 ```
 $ cd /path/to/Project-Wiki
-$ mongod --dbpath ../Project_Wiki_Data/db --auth --port 27017 --bind_ip 127.0.0.1
-```
-
-Flask web app
-
-```
-$ cd /path/to/Project-Wiki
-$ bash run.sh
-```
-
-caddy
-
-```
-$ cd /path/to/Project-Wiki
-$ caddy -conf Caddyfile
+$ bash start.sh
 ```
 
 ### Shutdown
 
-`ctrl-c` in each terminal window:
-
-* The one running mongod
-* The one running python
-* The one running caddy
+```
+$ cd /path/to/Project-Wiki
+$ bash stop
+```
 
 ## Notes
 
