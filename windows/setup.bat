@@ -1,5 +1,7 @@
 @echo off
 
+:: If MongoDB is installed with "Custom" installation option, 
+:: the following directory should also be changed accordingly.
 set mongod=C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe
 set mongo=C:\Program Files\MongoDB\Server\3.4\bin\mongo.exe
 
@@ -19,6 +21,7 @@ set parentdir=%cd%
 :: If Project_Wiki_Data already exists, abort.
 if exist %parentdir%\Project_Wiki_Data (
     echo Project_Wiki_Data already exists
+    echo Please move it somewhere else and run this script again
     pause
     goto :eof 
 ) else (
