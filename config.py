@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)
 
 class Config:
     DEBUG = os.environ.get('DEBUG', False)
-    SECRET_KEY = os.environ.get('SECRET_KEY', <put some hard to guess string here>)
+    SECRET_KEY = os.environ.get('SECRET_KEY', '<put some hard to guess string here>')
     WTF_CSRF_ENABLED = True
     
     # The database username and password will be asked for later.
