@@ -116,11 +116,11 @@ Note that MongoDB supports many languages, but Chinese and a few other languages
 
 Modify `config.py` and `Caddyfile` accordingly. Make sure MongoDB and caddy are not running.
 
-Run the following commands. **Do not forget to replace `<database username>` and `<database password>` with actual ones which should match those in `config.py`.**
+Run the following commands.
 
 ```
-$ cd /path/to/Project-Wiki
-$ bash setup.sh <database username> <database password>
+$ cd /path/to/Project-Wiki/macosx
+$ bash setup.sh
 ```
 
 Now the server is setup. To start it,
@@ -136,14 +136,14 @@ If setup correctly, Project Wiki will be available at `https:\\<your.domain>`.
 #### Start
 
 ```
-$ cd /path/to/Project-Wiki
+$ cd /path/to/Project-Wiki/macosx
 $ bash start.sh
 ```
 
 #### Shutdown
 
 ```
-$ cd /path/to/Project-Wiki
+$ cd /path/to/Project-Wiki/macosx
 $ bash stop.sh
 ```
 

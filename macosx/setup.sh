@@ -11,7 +11,13 @@ echo "Type database password followed by [ENTER]:"
 read password
 
 # create data directories
-mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
+if [ ! -d "../Project_Wiki_Data" ]; then
+  mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
+else
+  echo "Project_Wiki_Data already exists"
+  echo "Move it elsewhere, and run this scripts again"
+  exit 1
+fi
 
 # mongod launched in background
 mongod --dbpath ../Project_Wiki_Data/db --logpath ../Project_Wiki_Data/log/mongo_setup.log --auth --fork
