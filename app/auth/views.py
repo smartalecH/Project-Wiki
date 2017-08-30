@@ -20,16 +20,12 @@ def wiki_super_login():
         if user is not None and user.verify_password(form.password.data) \
                 and user.is_super_admin():
             login_user(user, form.remember_me.data)
-            if request.headers.getlist("X-Forwarded-For"):
-                ip = request.headers.getlist("X-Forwarded-For")[0]
-            else:
-                ip = request.remote_addr
             WikiLoginRecord(
                 username=form.username.data,
                 browser=request.user_agent.browser, 
                 platform=request.user_agent.platform, 
                 details=request.user_agent.string, 
-                ip=ip, 
+                ip=request.remote_addr, 
             ).save()
             return redirect(url_for('admin.wiki_super_admin'))
         flash('Invalid username or password.')
@@ -61,16 +57,12 @@ def wiki_group_login(group):
                 and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             session.permanent = True
-            if request.headers.getlist("X-Forwarded-For"):
-                ip = request.headers.getlist("X-Forwarded-For")[0]
-            else:
-                ip = request.remote_addr
             WikiLoginRecord(
                 username=form.username.data,
                 browser=request.user_agent.browser, 
                 platform=request.user_agent.platform, 
                 details=request.user_agent.string, 
-                ip=ip, 
+                ip=request.remote_addr, 
             ).save()
             return redirect(
                 request.args.get('next')
