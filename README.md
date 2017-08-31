@@ -203,6 +203,11 @@ Right-click `start.bat` in `windows` folder, and run it as administrator.
 
 ## Notes
 
+### Landing page
+
+The default background image of the landing page is a bird eye photo of Brigham Young University. 
+To change it, rename your own picture `cover.jpg`, and replace app/static/images/cover.jpg with it. 
+
 ### [Caddy](https://caddyserver.com/tutorial/beginner)
 
     $ caddy -conf /path/to/Caddyfile
