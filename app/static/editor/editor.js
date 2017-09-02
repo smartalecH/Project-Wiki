@@ -1,8 +1,36 @@
-var save_btn = document.getElementById('save');
+function reset() {
+    $('#in').css({'display':'block'});
+    $('#in').removeClass('fullwidth');
+    $('#in').addClass('halfwidth');
+    $('#out').css({'display':'block', 'position':'fixed'});
+}
+
+function isNormalMode() {
+    return ($('#in').hasClass('halfwidth') && $('#in').css('display') == 'block');
+}
+
+$('#preview-btn').click( function(){
+    if ( isNormalMode() ) {
+        $('#in').css({'display':'none'});
+        $('#out').css({'position':'inherit'});
+    } else {
+        reset();
+    }
+});
+
+$('#edit-btn').click( function(){
+    if ( isNormalMode() ) {
+        $('#in').toggleClass('halfwidth fullwidth');
+        $('#out').css({'display':'none'});
+    } else {
+        reset();
+    }
+});
+
 var isMacOS = (navigator.appVersion.indexOf("Mac") != -1);
 document.addEventListener('keydown', function(e){
 	if(e.keyCode == 83 && ((e.ctrlKey && !isMacOS) || (e.metaKey && isMacOS))){
-		save_btn.click();
+		$('#save').click();
 		e.preventDefault();
 		return false;
 	}
@@ -15,10 +43,9 @@ document.addEventListener('keydown', function(e){
 });
 
 // close flashed error messages
-var close = document.getElementsByClassName("closebtn");
 var i;
-for (i = 0; i < close.length; i++) {
-	close[i].onclick = function(){
+for (i = 0; i < $('.closebtn').length; i++) {
+	$('.closebtn')[i].onclick = function(){
 		var div = this.parentElement;
 
 		div.style.opacity = "0";
@@ -30,10 +57,9 @@ for (i = 0; i < close.length; i++) {
 window.onclick = function(event) {
 	if (!event.target.matches('.bars')) {
 
-		var dropdowns = document.getElementsByClassName("menu-content");
 		var i;
-		for (i = 0; i < dropdowns.length; i++) {
-			var openDropdown = dropdowns[i];
+		for (i = 0; i < $('.menu-content').length; i++) {
+			var openDropdown = $('.menu-content')[i];
 			if (openDropdown.classList.contains('show')) {
 				openDropdown.classList.remove('show');
 			}

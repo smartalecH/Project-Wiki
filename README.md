@@ -80,6 +80,9 @@ When you hover over it, a few options pop up.
 * Preview - show/hide the editing part
 * Save - save changes
 * Cancel - return to page
+* Drap & drop
+	* If a text file is dropped in editing section (left part of the page), its content will filled in automatically. DO NOT other types of files, because they will also be read as text file.
+	* When a file or files are dropped in the preview section (right part of the page), they will be uploaded, and their file id will be appended at the bottom of editing section.
 
 ### References
 

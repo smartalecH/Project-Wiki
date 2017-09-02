@@ -37,7 +37,7 @@ function initDropbox() {
         e.preventDefault();
         var files = e.originalEvent.dataTransfer.files;
         
-        if (confirm('Are you sure?')) {
+        if (confirm('Are you sure to upload?')) {
             addFiles(files);
             doUpload();
         }

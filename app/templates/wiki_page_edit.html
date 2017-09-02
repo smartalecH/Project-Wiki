@@ -42,7 +42,7 @@
     
     <form method="POST">
         {{ form.hidden_tag() }}
-        <div id="in">
+        <div id="in" class="halfwidth">
             {% if not form.textArea.data %}
             {% set f = form.textArea.process_data(page.md) %}
             {% endif %}
@@ -57,13 +57,14 @@
             </div>
             <div class="menu-content" id="myDropdown"">
                 <button type="button" id="upload-btn" onClick="document.getElementById('file-picker').click();">Upload</button>
-                <button type="button" id="preview-btn">Preview</button>
+                <button type="button" id="edit-btn">Fullscreen Edit</button>
+                <button type="button" id="preview-btn">Fullscreen Preview</button>
                 {% if request.user_agent.platform == 'macos' %}
-                {{ form.submit(id="save", value='Save          ⌘S') }}
+                {{ form.submit(id="save", value='Save (⌘S)') }}
                 {% else %}
-                {{ form.submit(id="save", value='Save      Ctrl+S') }}
+                {{ form.submit(id="save", value='Save (Ctrl+S)') }}
                 {% endif %}
-                <button type="button" id="cancel">Cancel &nbsp;&nbsp;&nbsp ESC</button>
+                <button type="button" id="cancel">Cancel (ESC)</button>
             </div>
             <div style='display:none;'>
                 {{ form.current_version(readonly=true) }}
@@ -78,16 +79,6 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="/static/bootstrap4/jquery-3.1.1.slim.min.js"><\/script>')</script>
     <script type="text/javascript">
-        $('#preview-btn').click( function(){
-            $('#in').toggle();
-            
-            if($('#out').css('position') == 'fixed') {
-                $('#out').css({'position':'inherit'});
-            } else {
-                $('#out').css({'position':'fixed'});
-            }
-        });
-        
         var cancel_btn = document.getElementById('cancel');
         cancel_btn.onclick = function () {
             location.href = '{{ url_for('main.wiki_page', group=group, page_id=page.id) }}';
