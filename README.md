@@ -12,7 +12,8 @@ Python (flask), MongoDB, Caddy
 
 ### Server reload
 
-If on `super-admin` page `server reload` is clicked, the server will shutdown Project Wiki, and restart it. This is useful for reloading Project Wiki remotely, because errors might happen and cause Project Wiki to behave strangely.
+If on `super-admin` page `server reload` is clicked, the server will shutdown Project Wiki, and restart it. 
+This is useful for reloading Project Wiki remotely, because glitches might happen and cause Project Wiki to behave strangely.
 
 ### Multiple groups
 
