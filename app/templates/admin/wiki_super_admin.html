@@ -5,18 +5,11 @@
 {% endblock %}
 
 {% block content %}
-<h1>Server reload</h1>
-
-<a href="{{ url_for('admin.wiki_server_reload') }}">Server reload</a>
-
-<br><br><hr>
-
-<h1>Add new group</h1>
 
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
-        {% if message == 'New group added.' %}
+        {% if message == 'New group added' or message == 'Server reload completed' or message == 'Backup completed' %}
         <div class="alert alert-success alert-dismissable">
         {% else %}
         <div class="alert alert-danger alert-dismissable">
@@ -27,6 +20,14 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
+
+<h1>Server reload</h1>
+
+<a href="{{ url_for('admin.wiki_server_reload') }}">Server reload</a>
+
+<br><br><hr>
+
+<h1>Add new group</h1>
 
 <form class="form-add-group" method="POST">
     {{ form.hidden_tag() }}
@@ -91,6 +92,14 @@
 </table>
 
 <br><hr>
+
+<h1>Back Up</h1>
+
+<p>This operation utilizes <a href="https://docs.mongodb.com/manual/reference/program/mongodump/">mongodump</a> to export all data to bson (binary json) files.</p>
+
+<a href="{{ url_for('admin.wiki_backup') }}">Back Up</a>
+
+<br><br><hr>
 
 <h1>Login Record</h1>
 

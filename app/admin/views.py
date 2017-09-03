@@ -1,5 +1,7 @@
 import os
+import platform
 import subprocess
+import datetime
 from flask import request, redirect, url_for, flash, render_template
 from flask_login import current_user
 from mongoengine.context_managers import switch_db
@@ -56,7 +58,7 @@ def wiki_super_admin():
                     switch_db(new_group.name_no_whitespace).save()
                 WikiCache(keypages_id_title=[], changes_id_title=[]). \
                     switch_db(new_group.name_no_whitespace).save()
-                flash('New group added.')
+                flash('New group added')
                 return redirect(url_for('.wiki_super_admin'))
             except FileExistsError:
                 flash('Upload directory already exists.')
@@ -69,9 +71,11 @@ def wiki_super_admin():
 @admin.route('/server-reload')
 @super_required
 def wiki_server_reload():
-    with open(os.path.join(basedir, 'Project_Wiki_Data', 'gunicorn.pid'), 'r') as f:
-        pid = f.read().strip()
-    subprocess.run(['kill', '-HUP', pid])
+    if platform.system() == 'Darwin' or platform.system() == 'Linux':
+        with open(os.path.join(basedir, 'Project_Wiki_Data', 'gunicorn.pid'), 'r') as f:
+            pid = f.read().strip()
+        subprocess.run(['kill', '-HUP', pid])
+        flash('Server reload completed')
     return redirect(url_for('.wiki_super_admin'))
 
 
@@ -143,6 +147,20 @@ def wiki_all_users():
     return render_template('admin/wiki_all_users.html', all_users=all_users)
 
 
+@admin.route('/backup')
+@super_required
+def wiki_backup():
+    backup_dir = os.path.join(basedir, config.DATA_FOLDER, 'backup', 
+                              datetime.datetime.now().strftime('%Y.%m.%d.%H%M%S'))
+    subprocess.run(['mongodump', '--out', backup_dir, 
+                    '--username', config.MONGODB_SETTINGS['username'],
+                    '--password', config.MONGODB_SETTINGS['password'],
+                    '--host', config.MONGODB_SETTINGS['host'],
+                    '--port', str(config.MONGODB_SETTINGS['port'])])
+    flash('Backup completed')
+    return redirect(url_for('.wiki_super_admin'))
+
+
 @admin.route('/<group>/admin', methods=['GET', 'POST'])
 @guest_required
 def wiki_group_admin(group):
@@ -162,12 +180,12 @@ def wiki_group_admin(group):
             new_user.set_password(form.password.data)
             new_user.set_role(group, form.access.data)
             new_user.save()
-            flash('New user added.')
+            flash('New user added')
             return redirect(url_for('.wiki_group_admin', group=group))
         elif not user.belong_to(group) and not user.is_super_admin():
             user.set_role(group, form.access.data)
             user.save()
-            flash('New user added.')
+            flash('New user added')
             return redirect(url_for('.wiki_group_admin', group=group))
         else:
             flash('User already exists.')

@@ -12,7 +12,7 @@ read password
 
 # create data directories
 if [ ! -d "../Project_Wiki_Data" ]; then
-  mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads
+  mkdir -p ../Project_Wiki_Data/db ../Project_Wiki_Data/log ../Project_Wiki_Data/uploads ../Project_Wiki_Data/backup
 else
   echo "Project_Wiki_Data already exists"
   echo "Move it elsewhere, and run this scripts again"

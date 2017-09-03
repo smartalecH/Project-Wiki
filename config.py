@@ -36,7 +36,8 @@ class Config:
     ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', '<admin email>')
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '<admin password>')
 
-    UPLOAD_FOLDER = os.path.join(basedir, 'Project_Wiki_Data', 'uploads')
+    DATA_FOLDER = 'Project_Wiki_Data'
+    UPLOAD_FOLDER = os.path.join(basedir, DATA_FOLDER, 'uploads')
 
 
 config = Config()

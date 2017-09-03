@@ -26,7 +26,7 @@ if exist %parentdir%\Project_Wiki_Data (
     goto :eof 
 ) else (
     :: create Project_Wiki_Data folders
-    mkdir Project_Wiki_Data\db Project_Wiki_Data\log Project_Wiki_Data\uploads
+    mkdir Project_Wiki_Data\db Project_Wiki_Data\log Project_Wiki_Data\uploads Project_Wiki_Data\backup
     echo Project_Wiki_Data created
 )
 
