@@ -6,6 +6,8 @@ Project Wiki is a notebook-type web app. It is inspired by ProjectForum of which
 
 ### What it is for and who should use it
 
+Project Wiki is essentially a online multi-user notebook. It aims to allow scientists and researchers to document their research and share them among their co-workers. Though, it is not limited to research. Anyone who needs a tool like this is welcome to use it.
+
 ## Features
 
 Python (flask), MongoDB, Caddy
