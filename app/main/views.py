@@ -10,7 +10,7 @@ from . import main
 from .. import config, basedir, wiki_md
 from .forms import BasicEditForm, WikiEditForm, SearchForm, CommentForm,\
     RenameForm, UploadForm, VersionRecoverForm
-from ..models import WikiGroup, WikiComment, WikiPage, WikiFile, WikiCache,\
+from ..models import Permission, WikiGroup, WikiComment, WikiPage, WikiFile, WikiCache,\
     render_wiki_file, render_wiki_image
 from ..email import send_email
 from ..wiki_util.pagination import calc_page_num
@@ -101,7 +101,7 @@ def wiki_show_changes(group):
 def wiki_page(group, page_id):
     form = CommentForm()
 
-    if form.validate_on_submit():
+    if form.validate_on_submit() and current_user.can(group, Permission.WRITE):
         _, comment_html = wiki_md(group, form.textArea.data, is_comment=True)
         new_comment = WikiComment(
             id='{}-{}'.format(datetime.utcnow().strftime('%s'), current_user.id),

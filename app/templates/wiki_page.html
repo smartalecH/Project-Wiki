@@ -50,7 +50,7 @@
     </div>
     <hr>
 
-
+{% if current_user.can(group, Permission.WRITE) %}
 <div class="row">
     <div class="col-md-6" id="wiki-comment-box">
             {% if form.textArea.errors %}
@@ -72,6 +72,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <div class="row">
     <div class="col-md-12">
