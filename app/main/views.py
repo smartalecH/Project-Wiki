@@ -1,10 +1,12 @@
 import os
+import re
 from datetime import datetime, date
 from werkzeug.utils import secure_filename
 from flask import request, redirect, render_template, \
     url_for, flash, send_from_directory
 from flask_login import current_user
 from mongoengine.context_managers import switch_db
+from bs4 import BeautifulSoup
 
 from . import main
 from .. import config, basedir, wiki_md
@@ -133,6 +135,9 @@ def wiki_page(group, page_id):
     return wiki_render_template('wiki_page.html', group=group, page=page, form=form)
 
 
+href_prog = re.compile(r'\/(.+?)\/([0-9a-f]{24})\/page(#.*)?')
+
+
 @main.route('/<group>/<page_id>/edit', methods=['GET', 'POST'])
 @user_required
 def wiki_page_edit(group, page_id):
@@ -145,6 +150,21 @@ def wiki_page_edit(group, page_id):
             if form.current_version.data == page.current_version:
                 toc, html = wiki_md(group, form.textArea.data)
                 page.update_content(group, form.textArea.data, html, toc)
+                
+                # Make sure wiki page references using raw html are also kept track of.
+                soup = BeautifulSoup(form.textArea.data, 'html.parser')
+                hrefs = [a['href'] for a in soup.find_all('a', class_='wiki-page')]
+                for href in hrefs:
+                    m = href_prog.fullmatch(href)
+                    try:
+                        href_group, href_page_id = m.group(1), m.group(2)
+                        assert group == href_group
+                        href_page = _WikiPage.objects(id=href_page_id).only('id').first()
+                        if href_page:
+                            wiki_md.wiki_refs.append(href_page)
+                    except (AttributeError, AssertionError):
+                        pass
+                
                 _WikiPage.objects(id=page.id).update(add_to_set__refs=wiki_md.wiki_refs,
                                                      add_to_set__files=wiki_md.wiki_files)
                 return redirect(url_for('.wiki_page', group=group, page_id=page_id))
