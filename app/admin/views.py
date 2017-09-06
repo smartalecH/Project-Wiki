@@ -233,8 +233,7 @@ def wiki_group_manage_user(group, user_id):
 def wiki_show_all_files(group):
     page_num = request.args.get('page', default=1, type=int)
     with switch_db(WikiFile, group) as _WikiFile:
-        files = _WikiFile.objects.order_by('uploaded_on'). \
-            paginate(page=page_num, per_page=100)
+        files = _WikiFile.objects.paginate(page=page_num, per_page=100)
     start_page, end_page = calc_page_num(page_num, files.pages)
     form = FileDeletionForm()
     return wiki_render_template('admin/wiki_show_all_files.html',
