@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd ..
+cd "$(dirname "$0")/.."
 TIMESTAMP=$(date +%Y.%m.%d.%H%M%S)
 
 # start mongodb
@@ -24,7 +24,7 @@ gunicorn -w 2 -b 127.0.0.1:31415 --daemon \
     manage:app
 
 # start caddy
-nohup caddy -conf Caddyfile &>/dev/null &
+nohup caddy -conf Project-Wiki/Caddyfile &>/dev/null &
 
 
 if pgrep -x "caddy" > /dev/null

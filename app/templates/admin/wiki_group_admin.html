@@ -10,7 +10,7 @@
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
-        {% if message == 'New user added.' %}
+        {% if message == 'New user added' %}
         <div class="alert alert-success alert-dismissable">
         {% else %}
         <div class="alert alert-danger alert-dismissable">
