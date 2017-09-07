@@ -38,7 +38,8 @@ def wiki_render_template(template, group, *args, **kwargs):
 
 @main.route('/')
 def index():
-    all_groups = [g.name_with_whitespace for g in WikiGroup.objects(active=True).all()]
+    # all_groups = [g.name_with_whitespace for g in WikiGroup.objects(active=True).all()]
+    all_groups = WikiGroup.objects(active=True).all()
     return render_template('cover.html', all_groups=all_groups)
 
 

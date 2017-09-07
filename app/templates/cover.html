@@ -26,7 +26,7 @@
                                     <a class="nav-link dropdown-toggle active" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Groups</a>
                                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                                         {% for group in all_groups %}
-                                        <a class="dropdown-item" href="{{ url_for('auth.wiki_group_login', group=group.replace(' ', '')) }}">{{ group }}</a>
+                                        <a class="dropdown-item" href="{{ url_for('auth.wiki_group_login', group=group.name_no_whitespace) }}">{{ group.name_with_whitespace }}</a>
                                         {% endfor %}
                                     </div>
                                 </div>
