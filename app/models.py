@@ -112,6 +112,41 @@ class WikiUser(UserMixin, db.Document):
             and (self.permissions['super'] & Permission.SUPER) == Permission.SUPER
 
 
+class WikiFile(db.Document):
+    """Collection of uploaded files.
+    
+    :param id: file id
+        The `id` is a sequencial integer share by all groups.
+        For example, if a file is uploaded in `group1`, and its id is 100, 
+        the id of next file, no matter which group it is uploaded in, will 
+        be 101. 
+    :param name: original file name
+    :param secured_name: secured file name created from original file name
+        Secured file names are created to ensure file names can't be used 
+        to corrupt computer systems.
+    :param mime_type: file type
+        Example: image/png
+    :param size: file size in bytes
+    :param upload_on: the time when file is uploaded
+    :param upload_by: username of the one uploads the file
+    """
+    id = db.SequenceField(primary_key=True)
+    name = db.StringField(max_length=256, required=True)
+    secured_name = db.StringField(max_length=256)
+    mime_type = db.StringField()
+    size = db.IntField()  # in bytes
+    uploaded_on = db.DateTimeField(default=datetime.now)
+    uploaded_by = db.StringField()
+
+    meta = {
+        'collection': 'wiki_file',
+        'allow_inheritance': True,
+    }
+
+    def __repr__(self):
+        return '<File - %s>' % self.name
+
+
 class WikiPageVersion(db.Document):
     """Collection of page versions.
     
@@ -292,41 +327,6 @@ class WikiPage(db.Document):
         diff_table = d.make_table(old_content.splitlines(), new_content.splitlines())
         diff_table = diff_table.replace('&nbsp;', ' ').replace(' nowrap="nowrap"', '')
         return diff_table
-
-
-class WikiFile(db.Document):
-    """Collection of uploaded files.
-    
-    :param id: file id
-        The `id` is a sequencial integer share by all groups.
-        For example, if a file is uploaded in `group1`, and its id is 100, 
-        the id of next file, no matter which group it is uploaded in, will 
-        be 101. 
-    :param name: original file name
-    :param secured_name: secured file name created from original file name
-        Secured file names are created to ensure file names can't be used 
-        to corrupt computer systems.
-    :param mime_type: file type
-        Example: image/png
-    :param size: file size in bytes
-    :param upload_on: the time when file is uploaded
-    :param upload_by: username of the one uploads the file
-    """
-    id = db.SequenceField(primary_key=True)
-    name = db.StringField(max_length=256, required=True)
-    secured_name = db.StringField(max_length=256)
-    mime_type = db.StringField()
-    size = db.IntField()  # in bytes
-    uploaded_on = db.DateTimeField(default=datetime.now)
-    uploaded_by = db.StringField()
-
-    meta = {
-        'collection': 'wiki_file',
-        'allow_inheritance': True,
-    }
-
-    def __repr__(self):
-        return '<File - %s>' % self.name
 
 
 class WikiCache(db.Document):

@@ -248,8 +248,12 @@ def wiki_show_all_files(group):
 @admin_required
 def wiki_group_delete_file(group):
     form = FileDeletionForm()
-    with switch_db(WikiFile, group) as _WikiFile:
-        _WikiFile.objects(id=form.file_id.data).delete()
+    with switch_db(WikiFile, group) as _WikiFile, \
+            switch_db(WikiPage, group) as _WikiPage:
+        file_to_delete = _WikiFile.objects(id=form.file_id.data).first()
+        _WikiPage.objects(files__contains=file_to_delete.id).\
+            update(pull__files=file_to_delete)
+        file_to_delete.delete()
     os.remove(os.path.join(config.UPLOAD_FOLDER, group, str(form.file_id.data)))
     return ''
 
