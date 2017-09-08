@@ -13,7 +13,7 @@ from ..main.views import wiki_render_template
 from .. import config, basedir, db, wiki_pwd, wiki_md
 from ..models import WikiGroup, WikiPage, WikiUser, WikiCache, WikiFile, WikiLoginRecord
 from ..decorators import super_required, admin_required, user_required, guest_required
-from .forms import AddGroupForm, NewUserForm, ExistingUserForm, FileDeletionForm, PageDeletionForm
+from .forms import AddGroupForm, NewUserForm, ExistingUserForm, FileDeletionForm, PageDeletionForm, SearchForm
 from ..wiki_util.pagination import calc_page_num
 
 
@@ -228,20 +228,38 @@ def wiki_group_manage_user(group, user_id):
                                 group=group, form=form, user_id=user_id)
 
 
-@admin.route('/<group>/all-wikipages')
+@admin.route('/<group>/all-wikipages', methods=['GET', 'POST'])
 @admin_required
 def wiki_show_all_wikipages(group):
+    search_keyword = request.args.get('search')
     page_num = request.args.get('page', default=1, type=int)
-    with switch_db(WikiPage, group) as _WikiPage:
-        wikipages = _WikiPage.objects(title__ne='Home').order_by('id').\
-            only('title', 'modified_by', 'modified_on', 'current_version').\
-            paginate(page=page_num, per_page=100)
-    start_page, end_page = calc_page_num(page_num, wikipages.pages)
-    form = PageDeletionForm()
+    
+    delete_form = PageDeletionForm()
+    search_form = SearchForm(search=search_keyword)
+    if search_keyword and not search_keyword.isspace():
+        with switch_db(WikiPage, group) as _WikiPage:
+            results = _WikiPage.objects(title__ne='Home').\
+                search_text(search_keyword).order_by('id').\
+                only('title', 'modified_on', 'modified_by', 'current_version').\
+                order_by('$text_score').paginate(page=page_num, per_page=100)
+        start_page, end_page = calc_page_num(page_num, results.pages)
+    else:
+        with switch_db(WikiPage, group) as _WikiPage:
+            results = _WikiPage.objects(title__ne='Home').order_by('id').\
+                only('title', 'modified_on', 'modified_by', 'current_version').\
+                paginate(page=page_num, per_page=100)
+        start_page, end_page = calc_page_num(page_num, results.pages)
+    
+    if search_form.validate_on_submit():
+        return redirect(url_for('.wiki_show_all_wikipages', 
+                                group=group, 
+                                search=search_form.search.data))
+
     return wiki_render_template('admin/wiki_show_all_pages.html',
                                 group=group,
-                                form=form,
-                                wikipages=wikipages,
+                                delete_form=delete_form,
+                                search_form=search_form,
+                                results=results,
                                 start_page=start_page,
                                 end_page=end_page)
 

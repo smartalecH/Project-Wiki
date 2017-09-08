@@ -87,6 +87,11 @@ class PageDeletionForm(FlaskForm):
     submit = SubmitField('Delete')
 
 
+class SearchForm(FlaskForm):
+    search = StringField('Search')
+    submit = SubmitField('Search')
+
+
 class FileDeletionForm(FlaskForm):
     file_id = IntegerField(
         'File id',
