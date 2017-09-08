@@ -11,7 +11,7 @@ from mongoengine.connection import disconnect
 from . import admin
 from ..main.views import wiki_render_template
 from .. import config, basedir, db, wiki_pwd, wiki_md
-from ..models import WikiGroup, WikiPage, WikiUser, WikiCache, WikiFile, WikiLoginRecord
+from ..models import WikiGroup, WikiPage, WikiPageVersion, WikiUser, WikiCache, WikiFile, WikiLoginRecord
 from ..decorators import super_required, admin_required, user_required, guest_required
 from .forms import AddGroupForm, NewUserForm, ExistingUserForm, FileDeletionForm, PageDeletionForm, SearchForm
 from ..wiki_util.pagination import calc_page_num
@@ -269,8 +269,10 @@ def wiki_show_all_wikipages(group):
 def wiki_group_delete_wikipage(group):
     form = PageDeletionForm()
     with switch_db(WikiFile, group) as _WikiFile, \
-            switch_db(WikiPage, group) as _WikiPage:
+            switch_db(WikiPage, group) as _WikiPage, \
+            switch_db(WikiPageVersion, group) as _WikiPageVersion:
         page_to_delete = _WikiPage.objects(id=form.page_id.data).first()
+        _WikiPageVersion.objects(id__in=[pv.id for pv in page_to_delete.versions]).delete()
         if page_to_delete.title != 'Home':
             for wp in _WikiPage.objects(refs__contains=page_to_delete.id):
                 wp_md = wp.md.replace('[[{}]]'.format(page_to_delete.title), '')
