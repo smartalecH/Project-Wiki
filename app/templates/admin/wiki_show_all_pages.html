@@ -15,7 +15,9 @@
     </div>
 </form>
 
+{% if search_form.search.data %}
 <h3>Search Results for <i>"{{ search_form.search.data }}"</i></h3>
+{% endif %}
 
 <nav aria-label="Wiki Pages">
   <ul class="pagination justify-content-center">
