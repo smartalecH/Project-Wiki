@@ -1,11 +1,11 @@
 #! /bin/bash
 
 cd "$(dirname "$0")/.."
-TIMESTAMP=$(date +%Y.%m.%d.%H%M%S)
+TIMESTAMP=$(date +%Y%m%d)
 
 # start mongodb
 mongod --dbpath ../Project_Wiki_Data/db \
-    --logpath ../Project_Wiki_Data/log/mongo_${TIMESTAMP}.log \
+    --logpath ../Project_Wiki_Data/log/mongo.log \
     --auth \
     --fork
 
@@ -24,7 +24,7 @@ gunicorn -w 2 -b 127.0.0.1:31415 --daemon \
     manage:app
 
 # start caddy
-nohup caddy -conf Project-Wiki/Caddyfile &>/dev/null &
+nohup caddy -conf Caddyfile &>/dev/null &
 
 
 if pgrep -x "caddy" > /dev/null

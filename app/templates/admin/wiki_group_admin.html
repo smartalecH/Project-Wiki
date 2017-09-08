@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>Add new account</h1>
+<h2>Add new account</h2>
 
 {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -52,7 +52,7 @@
 
 <br><hr>
 
-<h1>Current accounts</h1>
+<h2>Current accounts</h2>
 
 <table>
     <thead>
@@ -77,8 +77,12 @@
 
 <br><hr>
 
-<h1>Uploaded Files</h1>
+<h2>Uploaded Files</h2>
 
 <a href="{{ url_for('admin.wiki_show_all_files', group=group) }}">Uploaded Files</a>
+
+<h2>All Wiki Pages</h2>
+
+<a href="{{ url_for('admin.wiki_show_all_wikipages', group=group) }}">All Wiki Pages</a>
 
 {% endblock %}

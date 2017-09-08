@@ -79,6 +79,14 @@ class ExistingUserForm(FlaskForm):
     remove = SubmitField('Remove')
 
 
+class PageDeletionForm(FlaskForm):
+    page_id = StringField(
+        'Page id',
+        validators=[DataRequired('Please choose a page.')]
+    )
+    submit = SubmitField('Delete')
+
+
 class FileDeletionForm(FlaskForm):
     file_id = IntegerField(
         'File id',

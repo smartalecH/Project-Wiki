@@ -21,13 +21,13 @@
     {% endif %}
 {% endwith %}
 
-<h1>Server reload</h1>
+<h2>Server reload</h2>
 
 <a href="{{ url_for('admin.wiki_server_reload') }}">Server reload</a>
 
 <br><br><hr>
 
-<h1>Add new group</h1>
+<h2>Add new group</h2>
 
 <form class="form-add-group" method="POST">
     {{ form.hidden_tag() }}
@@ -62,7 +62,7 @@
 
 <br><hr>
 
-<h1>Current groups</h1>
+<h2>Current groups</h2>
 
 <table id="current-groups">
     <thead>
@@ -93,7 +93,7 @@
 
 <br><hr>
 
-<h1>Back Up</h1>
+<h2>Back Up</h2>
 
 <p>This operation utilizes <a href="https://docs.mongodb.com/manual/reference/program/mongodump/">mongodump</a> to export all data to bson (binary json) files.</p>
 
@@ -101,19 +101,19 @@
 
 <br><br><hr>
 
-<h1>Login Record</h1>
+<h2>Login Record</h2>
 
 <a href="{{ url_for('admin.wiki_show_login_record') }}">Login Record</a>
 
 <br><br><hr>
 
-<h1>Recent User Activities</h1>
+<h2>Recent User Activities</h2>
 
 <a href="{{ url_for('admin.wiki_recent_user_activities') }}">Recent User Activities</a>
 
 <br><br><hr>
 
-<h1>All Users</h1>
+<h2>All Users</h2>
 
 <a href="{{ url_for('admin.wiki_all_users') }}">All Users</a>
 

@@ -10,10 +10,10 @@ from mongoengine.connection import disconnect
 
 from . import admin
 from ..main.views import wiki_render_template
-from .. import config, basedir, db, wiki_pwd
+from .. import config, basedir, db, wiki_pwd, wiki_md
 from ..models import WikiGroup, WikiPage, WikiUser, WikiCache, WikiFile, WikiLoginRecord
 from ..decorators import super_required, admin_required, user_required, guest_required
-from .forms import AddGroupForm, NewUserForm, ExistingUserForm, FileDeletionForm
+from .forms import AddGroupForm, NewUserForm, ExistingUserForm, FileDeletionForm, PageDeletionForm
 from ..wiki_util.pagination import calc_page_num
 
 
@@ -226,6 +226,42 @@ def wiki_group_manage_user(group, user_id):
     form.access.data = user.get_role(group)
     return wiki_render_template('admin/wiki_group_manage_user.html', 
                                 group=group, form=form, user_id=user_id)
+
+
+@admin.route('/<group>/all-wikipages')
+@admin_required
+def wiki_show_all_wikipages(group):
+    page_num = request.args.get('page', default=1, type=int)
+    with switch_db(WikiPage, group) as _WikiPage:
+        wikipages = _WikiPage.objects(title__ne='Home').order_by('id').\
+            only('title', 'modified_by', 'modified_on', 'current_version').\
+            paginate(page=page_num, per_page=100)
+    start_page, end_page = calc_page_num(page_num, wikipages.pages)
+    form = PageDeletionForm()
+    return wiki_render_template('admin/wiki_show_all_pages.html',
+                                group=group,
+                                form=form,
+                                wikipages=wikipages,
+                                start_page=start_page,
+                                end_page=end_page)
+
+
+@admin.route('/<group>/delete-wikipage', methods=['POST'])
+@admin_required
+def wiki_group_delete_wikipage(group):
+    form = PageDeletionForm()
+    with switch_db(WikiFile, group) as _WikiFile, \
+            switch_db(WikiPage, group) as _WikiPage:
+        page_to_delete = _WikiPage.objects(id=form.page_id.data).first()
+        if page_to_delete.title != 'Home':
+            for wp in _WikiPage.objects(refs__contains=page_to_delete.id):
+                wp_md = wp.md.replace('[[{}]]'.format(page_to_delete.title), '')
+                wp_toc, wp_html = wiki_md(group, wp_md)
+                _WikiPage.objects(id=wp.id).update_one(set__md=wp_md,
+                                                       set__html=wp_html,
+                                                       set__toc=wp_toc)
+            page_to_delete.delete()
+    return ''
 
 
 @admin.route('/<group>/all-files')

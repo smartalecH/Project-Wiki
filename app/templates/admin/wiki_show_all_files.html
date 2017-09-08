@@ -86,8 +86,8 @@
 {% block scriptblock %}
 <script type="text/javascript">
     $('.delete-file').on("click", function(e) {
-        if (confirm('Are you sure?')) {
-            var file_id = $(this).attr('id').substr(11) * 1;
+        if (confirm('Are you sure to delete uploaded file?')) {
+            var file_id = $(this).attr('id').replace('delete-file', '') * 1;
             $('#file_id').val(file_id);
             $.ajax({
                 url:'{{ url_for('admin.wiki_group_delete_file', group=group) }}',
