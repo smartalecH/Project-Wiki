@@ -94,6 +94,7 @@ All wiki pages can reference each other. The reference page shows a list of page
 
 * Add new accounts to group, and also edit them
 * List all uploaded files
+* **Delete files and pages**
 
 ### Markdown - python != js
 
