@@ -270,9 +270,11 @@ def wiki_group_delete_wikipage(group):
     form = PageDeletionForm()
     with switch_db(WikiFile, group) as _WikiFile, \
             switch_db(WikiPage, group) as _WikiPage, \
-            switch_db(WikiPageVersion, group) as _WikiPageVersion:
+            switch_db(WikiPageVersion, group) as _WikiPageVersion, \
+            switch_db(WikiCache, group) as _WikiCache:
         page_to_delete = _WikiPage.objects(id=form.page_id.data).first()
         _WikiPageVersion.objects(id__in=[pv.id for pv in page_to_delete.versions]).delete()
+        _WikiCache.objects.update_one(pull__changes_id_title=(page_to_delete.id, page_to_delete.title))
         if page_to_delete.title != 'Home':
             for wp in _WikiPage.objects(refs__contains=page_to_delete.id):
                 wp_md = wp.md.replace('[[{}]]'.format(page_to_delete.title), '')
