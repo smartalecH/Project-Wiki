@@ -90,9 +90,8 @@ def wiki_show_changes(group):
         _cache = _WikiCache.objects.only('changes_id_title').first()
         changed_pages = []
         for _id, _ in _cache.changes_id_title[::-1]:
-            changed_pages.append(_WikiPage.objects.only(
-                'id', 'title', 'modified_by', 'modified_on'
-            ).get(id=_id))
+            changed_pages.append(_WikiPage.objects.\
+                only('id', 'title', 'modified_by', 'modified_on').get(id=_id))
     return wiki_render_template('wiki_changes.html',
                                 group=group,
                                 changed_pages=changed_pages)
