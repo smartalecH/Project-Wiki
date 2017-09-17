@@ -248,6 +248,7 @@ Change landing page
 
 ## TO DO
 
+* Update mongoengine for the next release
 * Private groups
 * Configure right-click of file link
 

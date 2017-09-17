@@ -20,7 +20,11 @@ else
 fi
 
 # mongod launched in background
-mongod --dbpath ../Project_Wiki_Data/db --logpath ../Project_Wiki_Data/log/mongo_setup.log --auth --fork
+mongod --dbpath ../Project_Wiki_Data/db \
+    --bind_ip 127.0.0.1 --port 27017 \
+    --logpath ../Project_Wiki_Data/log/mongo_setup.log \
+    --auth \
+    --fork
 
 # wait for mongod to start
 sleep 3

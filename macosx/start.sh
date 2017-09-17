@@ -5,6 +5,7 @@ TIMESTAMP=$(date +%Y%m%d)
 
 # start mongodb
 mongod --dbpath ../Project_Wiki_Data/db \
+    --bind_ip 127.0.0.1 --port 27017 \
     --logpath ../Project_Wiki_Data/log/mongo.log \
     --auth \
     --fork

@@ -39,6 +39,9 @@ echo     destination: file
 echo     path: %parentdir%\Project_Wiki_Data\log\mongod.log
 echo storage:
 echo     dbPath: %parentdir%\Project_Wiki_Data\db
+echo net:
+echo     bindIp: 127.0.0.1
+echo     port: 27017
 echo security:
 echo     authorization: enabled
 ) > "mongod.cfg"
