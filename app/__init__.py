@@ -19,7 +19,7 @@ wiki_pwd = CryptContext(
     )
 
 from . import models
-from .wiki_util import wiki_markdown, log_file_handler
+from .wiki_util import wiki_markdown, logger
 
 wiki_md = wiki_markdown.WikiMarkdown()
 
@@ -37,7 +37,7 @@ def create_app():
         db.register_connection(alias=group, name=group,
                                host=config.MONGODB_SETTINGS['host'],
                                port=config.MONGODB_SETTINGS['port'])
-    app.logger.addHandler(log_file_handler)
+    app.logger.addHandler(logger)
 
     login_manager.init_app(app)
     login_manager.anonymous_user = models.AnonymousUser
