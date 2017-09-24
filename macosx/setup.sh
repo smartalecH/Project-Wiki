@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd ..
+cd "$(dirname "$0")/.."
 
 echo "Type database username followed by [ENTER]:"
 # prompt for input
