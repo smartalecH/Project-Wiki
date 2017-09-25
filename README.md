@@ -2,15 +2,13 @@
 
 ## Introduction
 
-Project Wiki is a notebook-type web app. It is inspired by ProjectForum of which the service has been discontinued. This is also the reason why Project Wiki is created.
+Project Wiki is inspired by ProjectForum of which the service has been discontinued. This is also the reason why Project Wiki is created.
 
 ### What it is for and who should use it
 
-Project Wiki is essentially a online multi-user notebook. It aims to allow scientists and researchers to document their research and share them among their co-workers. Though, it is not limited to research. Anyone who needs a tool like this is welcome to use it.
+Project Wiki is essentially an online multi-user notebook. It aims to allow scientists and researchers to document their research and share it among their co-workers. Though, it is not limited to research. Anyone who needs a tool like this is welcome to use it.
 
 ## Features
-
-Python (flask), MongoDB, Caddy
 
 ### Server reload
 
@@ -205,15 +203,21 @@ Right-click `start.bat` in `windows` folder, and run it as administrator.
 * Run `setup.bat` as administrator first
 * Move the backup `Project_Wiki_Data` folder to the parent directory of `Project-Wiki`
 
-### Cloud
+### Linux
 
+To be honest, Linux is the best choise to host a server, and the process and shell script should be almost the same to Mac OS. 
+However, I do not possess a Linux machine at hand and hence the lack of instructions. 
 
-## Notes
+On the other hand, if you are a Linux user, I am sure you can figure it out yourself. :)
+
+## Customize
 
 ### Landing page
 
 The default background image of the landing page is a bird eye photo of Brigham Young University. 
 To change it, rename your own picture `cover.jpg`, and replace app/static/images/cover.jpg with it. 
+
+## Notes
 
 ### [Caddy](https://caddyserver.com/tutorial/beginner)
 
@@ -242,13 +246,11 @@ Restore database
     > exit
     # exit
 
-## Customize
-
-Change landing page
 
 ## TO DO
 
 * Update mongoengine for the next release
+* Use cloud service rather than hosting server by ourselves
 * Private groups
 * Configure right-click of file link
 
