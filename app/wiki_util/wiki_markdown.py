@@ -79,13 +79,13 @@ class WikiAtPattern(Pattern):
     def handleMatch(self, m):
         if self.is_wiki_comment:
             username = m.group(2)
-            el = etree.Element('strong')
-            el.text = '[@{}]'.format(username)
             u = WikiUser.objects(name=username).first()
             if u and self.wiki_group in u.permissions:
+                el = etree.Element('strong')
+                el.text = '[@{}]'.format(username)
                 self.wiki_users.append(u)
                 el.attrib['class'] = 'wiki-user-notification'
-            return el
+                return el
 
 
 class WikiAtExtension(Extension):
