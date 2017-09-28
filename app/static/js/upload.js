@@ -82,7 +82,7 @@ function addFiles(files) {
 
         // Append files to show on page
         var li_file = $('<li/>', {
-            class: 'list-group-item clearfix',
+            class: 'list-group-item d-flex justify-content-between align-items-center',
             text: files[i].name}).appendTo($selected);
         var del_file = $('<button/>', {
             type: 'button',
