@@ -2,10 +2,19 @@
  * Base structure
  */
 
-/* Move down content because we have a fixed navbar that is 50px tall */
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
 body {
-  padding-top: 50px;
-  font-size:14px;
+  padding-top: 3.5rem;
+}
+
+/*
+ * Typography
+ */
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
 }
 
 /*
@@ -24,22 +33,38 @@ body {
   border-right: 1px solid #eee;
 }
 
-.sidebar > ul {
-	margin-bottom:10px;
+/* Sidebar navigation */
+.sidebar {
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.sidebar ul ul {
-	padding:0 20px;
+.sidebar .nav {
+  margin-bottom: 20px;
 }
 
-.sidebar li {
-	line-height:1em;
+.sidebar .nav-item {
+  width: 100%;
 }
 
-.sidebar li a {
-	font-size:0.95em;
-	line-height:1em;
-	margin-top:2px;
-	margin-bottm:0;
-	padding:0;
+.sidebar .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+/*
+ * Dashboard
+ */
+
+ /* Placeholders */
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
