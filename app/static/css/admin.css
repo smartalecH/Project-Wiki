@@ -41,12 +41,9 @@
 #markdown-content li p:last-child { margin:0 }
 #markdown-content dd { margin: 0 0 0 2em; }
 #markdown-content img { border: 0; -ms-interpolation-mode: bicubic; }
-/*#markdown-content table:not(.diff) { margin: 1rem 0; border-collapse: collapse; border-spacing: 0; }
-#markdown-content .diff {line-height: 1em;}
-#markdown-content table:not(.diff) td, #markdown-content table:not(.diff) th { vertical-align: top; padding:0 10px; border: 1px solid #bbb; }
-#markdown-content table:not(.diff) th { text-align: center; }
-#markdown-content table:not(.diff) tr:nth-child(even) td, #markdown-content table:not(.diff) tr:nth-child(even) th { background: #eee; }
-*/
+.table:not(.table-left) th {
+   text-align: center;   
+}
 #markdown-content .close { line-height:1rem; }
 #markdown-content nav ul { padding: 0; }
 #markdown-content figure {text-align: center;}

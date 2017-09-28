@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<table align="center">
+<table align="center" class="table table-sm table-left">
     <thead>
         <tr>
             <th>Username</th>
@@ -16,9 +16,9 @@
     <tbody>
         {% for u in all_users %}
         <tr>
-            <td align="center">{{ u.name }}</td>
-            <td align="center">{{ u.email }}</td>
-            <td align="center">
+            <td>{{ u.name }}</td>
+            <td>{{ u.email }}</td>
+            <td>
                 {% for key in u.permissions.keys() %}
                     {{ key }}: {{ u.get_role(key) }}<br>
                 {% endfor %}
