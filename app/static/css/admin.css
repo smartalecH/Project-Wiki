@@ -5,7 +5,7 @@
 
 /*a:not(.page-link){ color: #0078ff; }*/
 .sidebar a:visited, #markdown-content a:visited:not(.btn){ color: #993399; }
-.sidebar a:hover, #markdown-content a:hover{ color: #06e; }
+.sidebar a:hover:not(.btn), #markdown-content a:hover:not(.btn){ color: #06e; }
 .sidebar a:active, #markdown-content a:active{ color:#faa700; }
 .sidebar a:focus, #markdown-content a:focus{ outline: thin dotted; }
 .sidebar a:hover, .sidebar a:active, #markdown-content a:hover, #markdown-content a:active{ outline: 0; }
