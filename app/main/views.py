@@ -60,13 +60,18 @@ def search(group):
 
     if form.validate_on_submit():
         return redirect(url_for('.search', group=group, search=form.search.data))
+        
+    try:
+        total_pages = results.pages
+    except AttributeError:
+        total_pages = 0
     return wiki_render_template('search.html', 
                                 group=group, 
                                 form=form, 
                                 results=results,
                                 start_page=start_page, 
                                 end_page=end_page,
-                                total_pages=results.pages)
+                                total_pages=total_pages)
 
 
 @main.route('/<group>/keypage-edit', methods=['GET', 'POST'])
