@@ -5,15 +5,23 @@
 {% endblock %}
 
 {% block content %}
-<form method="Post" class="form-inline">
-    {{ search_form.hidden_tag() }}
-    <div class="form-group">
-    {{ search_form.search(class="form-control") }}
-    </div>
-    <div class="form-group mx-sm-3">
-    {{ search_form.submit(class="btn btn-primary") }}
-    </div>
-</form>
+
+<div class="row">
+  <div class="col-lg-4">
+    <form method="Post">
+      {{ search_form.hidden_tag() }}
+      <div class="input-group">
+        {% set attribs = {'placeholder':'Search for...', 'aria-label':'Search for...'}  %}
+        {{ search_form.search(class="form-control", **attribs) }}
+        <span class="input-group-btn">
+          {{ search_form.submit(class="btn btn-primary", value="Go!") }}
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<br>
 
 {% if search_form.search.data %}
 <h3>Search Results for <i>"{{ search_form.search.data }}"</i></h3>
