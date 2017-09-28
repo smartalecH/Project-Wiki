@@ -125,7 +125,8 @@ def wiki_show_login_record():
     return render_template('admin/wiki_login_record.html',
                            records=records,
                            start_page=start_page,
-                           end_page=end_page)
+                           end_page=end_page,
+                           total_pages=records.pages)
 
 
 @admin.route('/recent-user-activities')
@@ -261,7 +262,8 @@ def wiki_show_all_wikipages(group):
                                 search_form=search_form,
                                 results=results,
                                 start_page=start_page,
-                                end_page=end_page)
+                                end_page=end_page,
+                                total_pages=results.pages)
 
 
 @admin.route('/<group>/delete-wikipage', methods=['POST'])
@@ -300,7 +302,8 @@ def wiki_show_all_files(group):
                                 form=form,
                                 files=files,
                                 start_page=start_page,
-                                end_page=end_page)
+                                end_page=end_page,
+                                total_pages=files.pages)
 
 
 @admin.route('/<group>/delete-file', methods=['POST'])

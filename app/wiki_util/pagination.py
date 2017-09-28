@@ -5,13 +5,13 @@ def calc_page_num(current_page, total_page):
     :param total_page: total page number
     :return: the page number to show in pagination
     """
-    if total_page <= 9:
+    if total_page <= 7:
         start_page, end_page = 1, total_page
-    elif current_page - 4 < 1:
-        start_page, end_page = 1, 9
-    elif current_page + 4 > total_page:
-        start_page, end_page = total_page - 8, total_page
+    elif current_page - 3 < 1:
+        start_page, end_page = 1, 7
+    elif current_page + 3 > total_page:
+        start_page, end_page = total_page - 6, total_page
     else:
-        start_page, end_page = current_page - 4, current_page + 4
+        start_page, end_page = current_page - 3, current_page + 3
 
     return start_page, end_page

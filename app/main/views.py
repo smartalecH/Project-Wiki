@@ -65,7 +65,8 @@ def search(group):
                                 form=form, 
                                 results=results,
                                 start_page=start_page, 
-                                end_page=end_page)
+                                end_page=end_page,
+                                total_pages=results.pages)
 
 
 @main.route('/<group>/keypage-edit', methods=['GET', 'POST'])
@@ -305,7 +306,8 @@ def wiki_page_versions(group, page_id):
                                 new_ver_num=new_ver_num, 
                                 diff_table=diff_table,
                                 start_page=start_page, 
-                                end_page=end_page)
+                                end_page=end_page,
+                                total_pages=page.current_version-1)
 
 
 @main.route('/<group>/<page_id>/rename', methods=['GET', 'POST'])
