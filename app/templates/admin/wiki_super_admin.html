@@ -64,7 +64,7 @@
 
 <h2>Current groups</h2>
 
-<table id="current-groups">
+<table id="current-groups" class="table">
     <thead>
         <tr>
             <th>Group Name</th>
@@ -77,7 +77,7 @@
         <tr>
             {% if g.active %}
                 <td><a href="{{ url_for('main.wiki_group_home', group=g.name_no_whitespace) }}">{{ g.name_with_whitespace }}</a></td>
-                <td align="center">
+                <td>
                     <label class="toggle-switch">
                         <input type="checkbox" id="{{ g.name_no_whitespace }}-checkbox" onclick="location.href='{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}'" checked>
                         <span class="slider round"></span>
@@ -85,7 +85,7 @@
                 </td>
             {% else %}
                 <td>{{ g.name_with_whitespace }}</td>
-                <td align="center">
+                <td>
                     <label class="toggle-switch">
                         <input type="checkbox" id="{{ g.name_no_whitespace }}-checkbox" onclick="location.href='{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}'">
                         <span class="slider round"></span>
