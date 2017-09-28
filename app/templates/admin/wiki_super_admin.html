@@ -95,7 +95,7 @@
                     </label>
                 </td>
             {% endif %}
-            <td><a href="{{ url_for('admin.wiki_delete_group', group=g.name_no_whitespace) }}" class="delete-db">Delete</a></td>
+            <td><a href="{{ url_for('admin.wiki_delete_group', group=g.name_no_whitespace) }}" class="btn btn-danger delete-db " role="button" aria-pressed="true">delete</a></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -115,7 +115,7 @@
 <script type="text/javascript">
     var elems = document.getElementsByClassName('delete-db');
     var confirmIt = function (e) {
-        if (!confirm('Are you sure?')) e.preventDefault();
+        if (!confirm('Are you sure to delete this group?')) e.preventDefault();
     };
     for (var i = 0, l = elems.length; i < l; i++) {
         elems[i].addEventListener('click', confirmIt, false);

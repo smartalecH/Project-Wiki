@@ -29,7 +29,11 @@
                         <a class="nav-link" href="{{ url_for('main.index') }}">Cover</a>
                     </li>
                     <li class="nav-item">
+                        {% if not group %}
                         <a class="nav-link" href="{{ url_for('admin.wiki_super_admin') }}">Super admin</a>
+                        {% else %}
+                        <a class="nav-link" href="{{ url_for('main.wiki_group_home', group=group) }}">Home</a>
+                        {% endif %}
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.wiki_super_logout') }}">Log out</a>
