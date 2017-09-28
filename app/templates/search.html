@@ -5,15 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<form method="Post" action="{{ url_for('main.search', group=group) }}" class="form-inline">
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-    {{ form.search(class="form-control") }}
-    </div>
-    <div class="form-group mx-sm-3">
-    {{ form.submit(class="btn btn-primary") }}
-    </div>
-</form>
+<div class="row">
+  <div class="col-lg-4">
+    <form method="Post" action="{{ url_for('main.search', group=group) }}">
+      {{ form.hidden_tag() }}
+      <div class="input-group">
+        {% set attribs = {'placeholder':'Search for...', 'aria-label':'Search for...'}  %}
+        {{ form.search(class="form-control", **attribs) }}
+        <span class="input-group-btn">
+          {{ form.submit(class="btn btn-primary", value="Go!") }}
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 {% if results%}
 <div id="search-result">
