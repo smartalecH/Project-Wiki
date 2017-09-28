@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div><button class="btn btn-primary btn-sm" onclick="location.href='{{ url_for('main.wiki_page', group=group, page_id=page.id) }}'">❮ Back</button></div><br>
+    <div><a href="{{ url_for('main.wiki_page', group=group, page_id=page.id) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">❮ Back</a></div><br>
 
     {% for p in referenced_by %}
         <a href="{{ url_for('main.wiki_page', group=group, page_id=p.id) }}" class="wiki-page">{{ p.title }}</a><br>

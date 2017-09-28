@@ -68,9 +68,8 @@
     <thead>
         <tr>
             <th>Group Name</th>
-            <th>Status</th>
+            <th>Activated</th>
             <th>Action</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -78,15 +77,22 @@
         <tr>
             {% if g.active %}
                 <td><a href="{{ url_for('main.wiki_group_home', group=g.name_no_whitespace) }}">{{ g.name_with_whitespace }}</a></td>
-                <td align="center"><span style="background-color:lightgreen;">In use</span></td>
-                <td align="center"><a href="{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}">Deactivate</a></td>
+                <td align="center">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="{{ g.name_no_whitespace }}-checkbox" onclick="location.href='{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}'" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
             {% else %}
                 <td>{{ g.name_with_whitespace }}</td>
-                <td align="center"><span style="background-color:pink;">Archived</span></td>
-                <td align="center"><a href="{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}">Activate</a></td>
+                <td align="center">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="{{ g.name_no_whitespace }}-checkbox" onclick="location.href='{{ url_for('admin.wiki_activate_group', group=g.name_no_whitespace) }}'">
+                        <span class="slider round"></span>
+                    </label>
+                </td>
             {% endif %}
             <td><a href="{{ url_for('admin.wiki_delete_group', group=g.name_no_whitespace) }}" class="delete-db">Delete</a></td>
-            <td><input type="checkbox" checked data-toggle="toggle"></td>
         </tr>
         {% endfor %}
     </tbody>

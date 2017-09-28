@@ -27,7 +27,7 @@
     {% endfor %}
 {% endif %}
 
-<button class="btn btn-primary btn-sm" onclick="location.href='{{ url_for('main.wiki_page', group=group, page_id=page.id) }}'">❮ Back</button>
+<a href="{{ url_for('main.wiki_page', group=group, page_id=page.id) }}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">❮ Back</a>
 
 <form class="form-recover-version form-inline" method="POST">
     {{ form.hidden_tag() }}
