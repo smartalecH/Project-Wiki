@@ -14,11 +14,6 @@
     </div>
 
         {{ form.submit(class="btn btn-primary") }}
-        <button type="button" id="cancel" class="btn btn-secondary">Cancel</button>
+        <a href="{{ url_for('main.wiki_group_home', group=group) }}" class="btn btn-secondary" role="button" aria-pressed="true">Cancel</a>
     </form>
-    <script type="text/javascript">
-        document.getElementById("cancel").onclick = function () {
-            location.href = "{{ url_for('main.wiki_group_home', group=group) }}";
-        };
-    </script>
 {% endblock %}

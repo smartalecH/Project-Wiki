@@ -28,11 +28,12 @@
         {{ form.access(class="form-control custom-select") }}
         </div>
         <div class="form-group">
-        {{ form.add(class="btn btn-primary col-4", value="Change") }}
+        {{ form.add(class="btn btn-primary col-12", value="Change") }}
         {% if user_id != current_user.id|string() %}
             {{ form.remove(class="btn btn-danger col-4") }}
         {% endif %}
         </div>
     </div>
 </form>
+<p><small><i>If Password field is empty, then it won't be changed.</i></small></p>
 {% endblock %}

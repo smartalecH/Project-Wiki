@@ -25,10 +25,10 @@
                     <form action="{{ url_for('main.wiki_do_upload', group=group) }}" method="POST" enctype="multipart/form-data" id="upload-form">
                         {{ form.hidden_tag() }}
                         <div class="form-inline">
-                            <button type="button" class="btn btn-sm btn-secondary" onClick="document.getElementById('file-picker').click();">Choose</button>&nbsp;
+                            <button type="button" class="btn btn-sm btn-primary" onClick="document.getElementById('file-picker').click();">Choose</button>&nbsp;
                             {{ form.file(multiple='', style="display:none", id="file-picker") }}
                             <span id="file-number">0 file selected</span>
-                            {{ form.upload(class="ml-auto btn btn-sm btn-primary", id="upload-button") }}&nbsp;
+                            {{ form.upload(class="ml-auto btn btn-sm btn-success", id="upload-button") }}&nbsp;
                             <button type="button" class="ml-sm btn btn-sm btn-secondary" onClick="window.parent.window.close();">Cancel</button>
                         </div>
                     </form>

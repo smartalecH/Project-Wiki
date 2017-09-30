@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+
+<div><a href="{{ url_for('main.wiki_page', group=group, page_id=page.id) }}" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">❮ Back</a></div><br>
+
     <form method="POST">
         {{ form.hidden_tag() }}
 
@@ -34,17 +37,10 @@
         </div>
         <div class="form-group">
         {{ form.submit(class="btn btn-primary col-2") }}
-        <button type="button" id="cancel" class="btn btn-secondary col-2">Cancel</button>
-        </div>
+    </div>
     </form>
     
     <div class="misc">
         <small><i>The new page title will be updated for all the pages which referenced it.</i></small>
     </div>
-    
-    <script type="text/javascript">
-        document.getElementById("cancel").onclick = function () {
-            location.href = "{{ url_for('main.wiki_page', group=group, page_id=page.id) }}";
-        };
-    </script>
 {% endblock %}
