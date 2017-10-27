@@ -38,5 +38,15 @@ pip install -r macosx/requirements.txt
 # create an super admin account to manage Project Wiki
 python manage.py create_admin
 
+# create a python script to start server
+rm -f run.py
+cat <<EOF >> run.py
+from manage import app
+from waitress import serve
+
+
+serve(app, listen='127.0.0.1:31415', threads=4)
+EOF
+
 # kill mongod process
 kill -9 `ps -ef | grep mongod | grep -v grep | awk '{print $2}'`

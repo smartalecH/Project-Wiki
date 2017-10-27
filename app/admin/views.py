@@ -71,11 +71,12 @@ def wiki_super_admin():
 @admin.route('/server-reload')
 @super_required
 def wiki_server_reload():
-    if platform.system() == 'Darwin' or platform.system() == 'Linux':
-        with open(os.path.join(basedir, 'Project_Wiki_Data', 'gunicorn.pid'), 'r') as f:
-            pid = f.read().strip()
-        subprocess.run(['kill', '-HUP', pid])
-        flash('Server reload completed')
+    # TODO: use another way to reboot server
+    # if platform.system() == 'Darwin' or platform.system() == 'Linux':
+    #     with open(os.path.join(basedir, 'Project_Wiki_Data', 'gunicorn.pid'), 'r') as f:
+    #         pid = f.read().strip()
+    #     subprocess.run(['kill', '-HUP', pid])
+    #     flash('Server reload completed')
     return redirect(url_for('.wiki_super_admin'))
 
 

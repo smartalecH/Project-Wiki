@@ -18,11 +18,7 @@ else
 fi
 
 # start web app
-gunicorn -w 2 -b 127.0.0.1:31415 --daemon \
-    --max-requests 200 \
-    --pid ../Project_Wiki_Data/gunicorn.pid \
-    --access-logfile ../Project_Wiki_Data/log/gunicorn_${TIMESTAMP}.log \
-    manage:app
+python run.py
 
 # start caddy
 nohup caddy -conf Caddyfile &>/dev/null &

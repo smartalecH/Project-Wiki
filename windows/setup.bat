@@ -68,6 +68,7 @@ python manage.py create_admin
 :: stop MongoDB service
 net stop MongoDB
 
+:: create a python script to start server
 (
 echo from manage import app
 echo from waitress import serve
