@@ -1,6 +1,6 @@
 #! /bin/bash
 
-kill -9 `ps -ef | grep gunicorn | grep -v grep | awk '{print $2}'`
-kill -9 `ps -ef | grep mongod | grep -v grep | awk '{print $2}'`
-kill -9 `ps -ef | grep caddy | grep -v grep | awk '{print $2}'`
+killall python PW_run.py
+killall mongod
+killall caddy -conf PW_Caddyfile
 echo "Project Wiki Stopped"

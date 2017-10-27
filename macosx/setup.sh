@@ -39,8 +39,8 @@ pip install -r macosx/requirements.txt
 python manage.py create_admin
 
 # create a python script to start server
-rm -f run.py
-cat <<EOF >> run.py
+rm -f PW_run.py
+cat <<EOF >> PW_run.py
 from manage import app
 from waitress import serve
 

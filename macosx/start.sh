@@ -18,10 +18,10 @@ else
 fi
 
 # start web app
-python run.py
+nohup python PW_run.py &>/dev/null &
 
 # start caddy
-nohup caddy -conf Caddyfile &>/dev/null &
+nohup caddy -conf PW_Caddyfile &>/dev/null &
 
 
 if pgrep -x "caddy" > /dev/null
