@@ -30,11 +30,11 @@
         <div class="form-group">
         {{ form.add(class="btn btn-primary col-12", value="Change") }}
         </div>
-        <div class="form-group">
         {% if user_id != current_user.id|string() %}
-            {{ form.remove(class="btn btn-danger col-4") }}
-        {% endif %}
+        <div class="form-group">
+            {{ form.remove(class="btn btn-danger col-12") }}
         </div>
+        {% endif %}
     </div>
 </form>
 <p><small><i>If Password field is empty, then it won't be changed.</i></small></p>
